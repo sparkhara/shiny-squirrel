@@ -1,18 +1,25 @@
-# shiny squirrel
+shiny squirrel
+==============
 
 this is a flask application for displaying some log data
 
 to run this application simply install the requirements and run:
 
+::
+
     $ python shiny_squirrel.py
 
-## api
+api
+---
 
 the routes available
 
-### index
+index
+~~~~~
 
 **Request**
+
+::
 
     GET /
 
@@ -20,13 +27,18 @@ the routes available
 
 a web page with the graph of counts
 
-### log count packets
+log count packets
+~~~~~~~~~~~~~~~~~
 
 **Request**
+
+::
 
     GET /count-packets
 
 **Response**
+
+::
 
     200
 
@@ -53,6 +65,8 @@ a web page with the graph of counts
 
 **Request**
 
+::
+
     POST /count-packets
 
     {
@@ -62,13 +76,19 @@ a web page with the graph of counts
 
 **Response**
 
+::
+
     201
 
 **Request**
 
+::
+
     GET /count-packets/{packet_id}
 
 **Response**
+
+::
 
     200
 
@@ -79,13 +99,18 @@ a web page with the graph of counts
       }
     }
 
-### sorted log lines
+sorted log lines
+~~~~~~~~~~~~~~~~
 
 **Request**
+
+::
 
     GET /sorted-logs?ids={count packet id 1}&...&ids={count packet id n}
 
 **Response**
+
+::
 
     200
 
@@ -95,13 +120,18 @@ a web page with the graph of counts
       }
     }
 
-### totals
+totals
+~~~~~~
 
 **Request**
+
+::
 
     GET /totals
 
 **Response**
+
+::
 
     200
 
