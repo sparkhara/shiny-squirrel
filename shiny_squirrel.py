@@ -206,15 +206,9 @@ class LogTotalsView(views.MethodView):
         return f.jsonify(LogTotals().to_dict())
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description='run the shiny squirrel server')
-    parser.add_argument('--mongo', help='the mongodb url',
-                        required=True)
-    args = parser.parse_args()
-    _mongourl = args.mongo
+def main(mongourl):
+    _mongourl = mongourl
     print('MongoDB at {}'.format(_mongourl))
-
     app.debug = True
     app.add_url_rule('/', view_func=IndexView.as_view('index'))
     app.add_url_rule('/totals', view_func=LogTotalsView.as_view('totals'))
@@ -225,3 +219,12 @@ if __name__ == '__main__':
 
     CountPacketsTimer(CountPackets(), 1).start()
     app.run(host='0.0.0.0', port=9050)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description='run the shiny squirrel server')
+    parser.add_argument('--mongo', help='the mongodb url',
+                        required=True)
+    args = parser.parse_args()
+    main(args.mongo)

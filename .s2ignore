@@ -1,0 +1,7 @@
+.gitignore
+Dockerfile
+Makefile
+random_data_generator.py
+README.rst
+shiny-squirrel-controller.yaml
+shiny-squirrel-service.yaml
