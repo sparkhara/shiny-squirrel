@@ -3,8 +3,8 @@ shiny squirrel
 
 this is a flask application for displaying some log data
 
-installing
-----------
+installation and execution
+--------------------------
 
 this application is intended to be built as an openshift
 source-to-image image. for more information on source-to-image, please
@@ -28,8 +28,8 @@ following commands (or something similar to your settings):
     (log output from shiny-squirrel)
 
 
-api
----
+rest api
+--------
 
 the routes available
 
