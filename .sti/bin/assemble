@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-
-cp -rf /tmp/src/* ${HOME}
-
-pip install --user -r requirements.txt
-
