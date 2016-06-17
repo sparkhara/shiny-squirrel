@@ -1,0 +1,57 @@
+kind: Template
+apiVersion: v1
+template: shiny-squirrel
+metadata:
+  name: shiny-squirrel
+objects:
+
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: shiny-squirrel
+    labels:
+      name: shiny-squirrel
+  spec:
+    ports:
+      - name: squirrel-port
+        protocol: TCP
+        port: 9050
+        targetPort: 9050
+    selector:
+      name: shiny-squirrel
+
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    name: shiny-squirrel
+  spec:
+    strategy:
+      type: Rolling
+    triggers:
+      - type: ConfigChange
+    replicas: 1
+    selector:
+      name: shiny-squirrel
+    template:
+      metadata:
+        labels:
+          name: shiny-squirrel
+      spec:
+        containers:
+          - name: shiny-squirrel
+            image: ${SHINY_SQUIRREL_IMAGE}
+            env:
+              - name: SHINY_SQUIRREL_MONGO_URL
+                value: ${SHINY_SQUIRREL_MONGO_URL}
+            ports:
+              - name: squirrel-port
+                containerPort: 9050
+                protocol: TCP
+
+parameters:
+- name: SHINY_SQUIRREL_IMAGE
+  description: Full name of the shiny squirrel image
+  required: true
+- name: SHINY_SQUIRREL_MONGO_URL
+  description: URL for the mongo db
+  required: true
