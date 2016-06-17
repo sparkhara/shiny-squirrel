@@ -207,6 +207,7 @@ class LogTotalsView(views.MethodView):
 
 
 def main(mongourl):
+    global _mongourl
     _mongourl = mongourl
     print('MongoDB at {}'.format(_mongourl))
     app.debug = True
