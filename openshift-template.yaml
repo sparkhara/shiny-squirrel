@@ -51,7 +51,7 @@ objects:
 parameters:
 - name: SHINY_SQUIRREL_IMAGE
   description: Full name of the shiny squirrel image
-  required: true
+  value: docker.io/elmiko/shiny-squirrel
 - name: SHINY_SQUIRREL_MONGO_URL
   description: URL for the mongo db
   required: true
