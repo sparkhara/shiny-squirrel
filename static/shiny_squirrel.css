@@ -30,6 +30,12 @@ body {
   stroke-width: 1px;
 }
 
+.bar-errors:hover {
+  fill: lightcoral;
+  stroke: red;
+  stroke-width: 1px;
+}
+
 .line {
   fill: none;
   /*stroke: steelblue;*/
