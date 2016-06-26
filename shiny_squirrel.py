@@ -201,7 +201,8 @@ class SortedLogsView(views.MethodView):
                 return 0
             return cmp(date1, date2)
 
-        ret = {'sorted-logs': {'lines': sorted(logs, log_sort)}}
+        # ret = {'sorted-logs': {'lines': sorted(logs, log_sort)}}
+        ret = {'sorted-logs': {'lines': logs}}
         return f.jsonify(ret), 200
 
 
