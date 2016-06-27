@@ -14,6 +14,10 @@ var y = d3.scale.linear()
     .domain([0, 90])
     .range([height, 0]);
 
+var yService = d3.scale.linear()
+    .domain([0, 15])
+    .range([height, 0]);
+
 var xAxis = d3.svg.axis()
     .scale(x_axis_scale)
     .orient("bottom");
@@ -22,9 +26,13 @@ var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
 
+var yAxisServiceGraph = d3.svg.axis()
+    .scale(yService)
+    .orient("left");
+
 var line = d3.svg.line()
     .x(function(d) { return x(d.pos); })
-    .y(function(d) { return y(d.count); });
+    .y(function(d) { return yService(d.count); });
 
 var total_graph = d3.select("#total-graph").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -45,7 +53,7 @@ var color_list = ['teal', 'orangered', 'mediumseagreen',
 
 function circle_transform(item) {
   var scaled_pos = x(item.pos);
-  var scaled_cnt = y(item.count);
+  var scaled_cnt = yService(item.count);
   return "translate(" + scaled_pos + "," + scaled_cnt + ")";
 }
 
@@ -57,7 +65,7 @@ function get_count() {
       p.pos = idx;
       p.total_count = +item.total_count;
       p.packet_ids = item.packet_ids;
-      p.errors = item.errors;
+      p.quality = item.quality;
       data.push(p);
   });
 
@@ -107,7 +115,7 @@ function packet_click(packet) {
   });
 }
 
-function initialize(graph, group_id) {
+function initialize(graph, group_id, yAxisFunc) {
   graph.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
@@ -119,7 +127,7 @@ function initialize(graph, group_id) {
 
   graph.append("g")
       .attr("class", "y axis")
-      .call(yAxis)
+      .call(yAxisFunc)
     .append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
@@ -132,8 +140,12 @@ function initialize(graph, group_id) {
 }
 
 function get_bar_class(data) {
-  if (data.errors == true) {
-    return "bar-errors";
+  if (data.quality < 0.24) {
+    return "bar-red";
+  } else if (data.quality < 0.266 ) {
+    return "bar-orange";
+  } else if (data.quality < 0.28) {
+    return "bar-yellow";
   }
   return "bar";
 }
@@ -196,8 +208,8 @@ function update_line_and_circles() {
   });
 }
 
-initialize(total_graph, "total-countline");
-initialize(service_graph, "service-countline");
+initialize(total_graph, "total-countline", yAxis);
+initialize(service_graph, "service-countline", yAxisServiceGraph);
 
 setInterval(function() {
   d3.json("/count-packets", function(error, data) {
@@ -208,7 +220,7 @@ setInterval(function() {
         var p = Object();
         p.total_count = item.count;
         p.packet_ids = item.ids;
-        p.errors = item.errors;
+        p.quality = item.quality;
         p.services = item["service-counts"];
         Object.keys(p.services).forEach(function (item) {
           if (service_list.indexOf(item) === -1) {

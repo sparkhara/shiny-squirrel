@@ -87,7 +87,7 @@ class CountPackets(Singleton):
         self.last_packet = {
             'id': None,
             'count': 0,
-            'errors': False,
+            'quality': 1.0,
             'service-counts': {},
             }
 
@@ -95,7 +95,7 @@ class CountPackets(Singleton):
         self.since_last_update = {
             'ids': [],
             'count': 0,
-            'errors': False,
+            'quality': 1.0,
             'service-counts': {},
             }
 
@@ -124,13 +124,15 @@ class CountPackets(Singleton):
 
         self.last_packet['id'] = new_packet['id']
         self.last_packet['count'] = int(new_packet.get('count', 0))
-        self.last_packet['errors'] = new_packet.get('errors', False)
+        self.last_packet['quality'] = new_packet.get('quality', 1.0)
         self.last_packet['service-counts'] = copy.deepcopy(
             new_packet.get('service-counts', {}))
 
         self.since_last_update['ids'].append(self.last_packet['id'])
         self.since_last_update['count'] += self.last_packet['count']
-        self.since_last_update['errors'] = True if self.since_last_update['errors'] is True else self.last_packet['errors']
+
+        self.since_last_update['quality'] = min(
+            self.last_packet['quality'], self.since_last_update['quality'])
         for service, count in self.last_packet['service-counts'].items():
             self.since_last_update['service-counts'][service] = (
                 self.since_last_update['service-counts'].get(service, 0)

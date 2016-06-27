@@ -19,20 +19,53 @@ body {
   stroke: none;
 }
 
-.bar-errors {
-  fill: red;
-  stroke: none;
-}
-
 .bar:hover {
   fill: lightblue;
   stroke: steelblue;
   stroke-width: 1px;
 }
 
+.bar-errors {
+  fill: red;
+  stroke: none;
+}
+
 .bar-errors:hover {
   fill: lightcoral;
   stroke: red;
+  stroke-width: 1px;
+}
+
+.bar-orange {
+    fill: orange;
+    stroke: none;
+}
+
+.bar-orange:hover {
+  fill: lightsalmon;
+  stroke: darkorange;
+  stroke-width: 1px;
+}
+
+.bar-red {
+    fill: red;
+    stroke: none;
+}
+
+.bar-red:hover {
+  fill: lightcoral;
+  stroke: red;
+  stroke-width: 1px;
+}
+
+.bar-yellow {
+    fill: gold;
+    stroke: none;
+}
+
+.bar-yellow:hover {
+  fill: khaki;
+  stroke: goldenrod;
   stroke-width: 1px;
 }
 
