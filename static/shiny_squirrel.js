@@ -115,7 +115,8 @@ function packet_click(packet) {
     data["sorted-logs"].lines.forEach(function (line) {
       countline.append("li")
         .attr("class", "list-group-item")
-        .text(line);
+        .attr("class", get_line_class(line[1]))
+        .text(line[0]);
     });
   });
 }
@@ -153,6 +154,18 @@ function get_bar_class(data) {
     return "bar-yellow";
   }
   return "bar";
+}
+
+function get_line_class(quality) {
+  cl = "list-group-item";
+  if (quality < 0.24) {
+    cl += " line-red";
+  } else if (quality < 0.266 ) {
+    cl += " line-orange";
+  } else if (quality < 0.28) {
+    cl += " line-yellow";
+  }
+  return cl;
 }
 
 function update() {

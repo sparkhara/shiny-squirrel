@@ -85,6 +85,18 @@ body {
   stroke: lightblue;
 }
 
+li.line-orange {
+    background-color: orange;
+}
+
+li.line-red {
+    background-color: lightcoral;
+}
+
+li.line-yellow {
+    background-color: gold;
+}
+
 #packet_row {
     height: 200px;
     overflow: auto;
