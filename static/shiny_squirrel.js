@@ -49,7 +49,10 @@ var service_graph = d3.select("#service-graph").append("svg")
 var count_list = [];
 var service_list = [];
 var color_list = ['teal', 'orangered', 'mediumseagreen',
-                  'mediumturquoise', 'gold', 'limegreen'];
+                  'mediumturquoise', 'gold', 'limegreen',
+                  'aquamarine', 'blueviolet', 'brown',
+                  'cornflowerblue', 'crimson', 'darkkhaki',
+                  'forestgreen', 'limegreen'];
 
 function circle_transform(item) {
   var scaled_pos = x(item.pos);
