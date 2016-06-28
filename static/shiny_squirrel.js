@@ -76,16 +76,18 @@ function get_count_for_service(service) {
   var data = [];
 
   count_list.forEach(function (item, idx, arr) {
-    var p = Object();
-    p.pos = idx;
-    p.count = +0;
-    if ("services" in item) {
-      if (service in item.services) {
-        p.count = +item.services[service];
+    if (idx < 40) {
+      var p = Object();
+      p.pos = idx;
+      p.count = +0;
+      if ("services" in item) {
+        if (service in item.services) {
+          p.count = +item.services[service];
+        }
       }
-    }
-    if (p.count > 0) {
-      data.push(p);
+      if (p.count > 0) {
+        data.push(p);
+      }
     }
   });
 
