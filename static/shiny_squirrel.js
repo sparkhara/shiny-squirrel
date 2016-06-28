@@ -172,7 +172,7 @@ function update() {
 }
 
 function update_line_and_circles() {
-  var services = service_list;
+  var services = service_list.slice(0, 10);
   var legend = d3.select("#service-countline").selectAll(".legend").data(services);
 
   legend.enter().append("g")
